@@ -103,6 +103,6 @@ execute pathogen#infect()
 " toggle paste mode
 set pastetoggle=<F3>
 
-
+" Highlight 80 char line
 highlight ColorColumn ctermbg=gray
 set colorcolumn=80
