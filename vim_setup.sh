@@ -13,8 +13,8 @@ sudo apt-get install vim
 ## Install Vundle
 git clone https://github.com/gmarik/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 
-## Copy vimrc file
-cp ./vimrc ~/.vimrc
+## Copy .vimrc file
+cp ./.vimrc ~/.vimrc
 
 ## Install pathogen.vim to mange `runtimepath` with ease
 mkdir -p ~/.vim/autoload && \
