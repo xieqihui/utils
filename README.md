@@ -1,13 +1,17 @@
 # Useful Tools to Setup Development Environment for Data Science
 
 ## Docker container runtime for machine learning development
-The container will start `jupyterlab` in port `8889`
-`Dockerfile.ml_gpu_py3`: Python 3.6, Nvidia GPU driver, conda, jupyterlab
-`Dockerfile.ml_gpu_py2`: Python 2.7, Nvidia GPU dirver, conda, jupyterlab
+The container will start `jupyterlab` in port `8889`<br/>
 
+Python 3.6, Nvidia GPU driver, conda, jupyterlab<br/>
 ```
 cd docker
 docker build -f Dockerfile.ml_gpu_py3 -t xieqihui/ml_dev:gpu_py3
+```
+Python 2.7, Nvidia GPU dirver, conda, jupyterlab<br/>
+```
+cd docker
+docker build -f Dockerfile.ml_gpu_py2 -t xieqihui/ml_dev:gpu_py2
 ```
 
 ## Vim for Python
