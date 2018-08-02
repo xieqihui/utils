@@ -40,7 +40,7 @@ RUN rm requirements.txt
 CMD jupyter lab --ip=0.0.0.0 --port=8889 --allow-root
 ```
 
-`docker-compose.yml'
+`docker-compose.yml`
 ```
 version: '2.3'
 services:
