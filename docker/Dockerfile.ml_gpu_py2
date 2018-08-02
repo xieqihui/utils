@@ -22,7 +22,7 @@ RUN apt-get update   \
 
 ## Config vim
 RUN git clone https://github.com/xieqihui/utils.git
-WORKDIR /root/utils
+WORKDIR /root/utils/vim
 RUN /bin/bash ./vim_setup.sh
 WORKDIR /root
 RUN rm -rf /root/utils
