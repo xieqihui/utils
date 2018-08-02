@@ -21,7 +21,7 @@ mkdir -p ~/.vim/autoload && \
 curl -LSso ~/.vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim
 
 ## Install plugins specified in vimrc
-vim +PluginInstall +qall
+echo | echo | vim +PluginInstall +qall &>/dev/null
 
 ## Install YouCompleteMe
 # https://github.com/Valloric/YouCompleteMe#mac-os-x-super-quick-installation
