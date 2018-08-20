@@ -3,11 +3,11 @@ The container will start `jupyterlab` in port `8889`<br/>
 
 Python 3.6, Nvidia GPU driver, conda, jupyterlab<br/>
 ```
-docker build -f Dockerfile.ml_gpu_py3 -t xieqihui/ml_dev:gpu_py3
+docker build -f Dockerfile.ml_gpu_py3 -t xieqihui/ml_dev:gpu_py3 .
 ```
 Python 2.7, Nvidia GPU dirver, conda, jupyterlab<br/>
 ```
-docker build -f Dockerfile.ml_gpu_py2 -t xieqihui/ml_dev:gpu_py2
+docker build -f Dockerfile.ml_gpu_py2 -t xieqihui/ml_dev:gpu_py2 .
 ```
 These images can be used as base image for machine learning projects.
 For example, to start a new project `sample`, set the repo structure as:
