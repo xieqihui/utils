@@ -9,6 +9,10 @@ Python 2.7, Nvidia GPU dirver, conda, jupyterlab<br/>
 ```
 docker build -f Dockerfile.ml_gpu_py2 -t xieqihui/ml_dev:gpu_py2 .
 ```
+Python 3.6, conda, jupyterlab<br/>
+```
+docker build -f Dockerfile.ml_cpu_py3.6 -t xieqihui/ml_dev:cpu_py3.6 .
+```
 These images can be used as base image for machine learning projects.
 For example, to start a new project `sample`, set the repo structure as:
 ```
