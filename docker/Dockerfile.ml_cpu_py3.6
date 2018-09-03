@@ -1,0 +1,83 @@
+FROM ubuntu:16.04
+WORKDIR /root
+
+ENV LANG=C.UTF-8 LC_ALL=C.UTF-8
+    
+RUN rm /bin/sh   && ln -s /bin/bash /bin/sh
+RUN apt-get update  \
+	&& apt-get install -y --no-install-recommends         apt-utils         apt-transport-https         build-essential         software-properties-common         python-software-properties         daemontools         curl         wget         vim         git         zip         bzip2         libcurl3-dev         libfreetype6-dev         libpng12-dev         libzmq3-dev         pkg-config         python-dev         python3-dev         python-numpy         python3-numpy         python-six         python3-six         python-wheel         python3-wheel         python-pip         python3-pip         rsync         software-properties-common         swig         unzip         zip         zlib1g-dev         locales         cmake  sudo fish htop ssh\
+	&& apt-get clean  && rm -rf /var/lib/apt/lists/*
+RUN locale-gen en_US.UTF-8   && localedef -i en_US -f UTF-8 en_us.UTF-8
+RUN pip install pip==9.0.3 --no-cache --ignore-installed --upgrade   \
+	&& pip3 install pip==9.0.3 --no-cache --ignore-installed --upgrade
+RUN apt-get update   \
+  && apt-get install -y software-properties-common   \
+  && apt-get install -y apt-transport-https   \
+  && apt-get install -y wget   \
+  && apt-get clean      
+
+## Config vim
+RUN git clone https://github.com/xieqihui/utils.git
+WORKDIR /root/utils/vim
+RUN /bin/bash ./vim_setup.sh
+WORKDIR /root
+RUN rm -rf /root/utils
+
+
+## Install conda
+RUN  wget -q https://repo.continuum.io/miniconda/Miniconda3-4.5.1-Linux-x86_64.sh -O /tmp/miniconda.sh &&     \
+	 bash /tmp/miniconda.sh -f -b -p /opt/conda &&     \
+	 /opt/conda/bin/conda install --yes python=3.5 pip=9.0.3 &&     \
+	 rm /tmp/miniconda.sh	
+ENV PATH=/opt/conda/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin 
+
+## Config Jupyter
+RUN source activate base \
+    && conda install -c anaconda cython nodejs\
+    && pip install jupyter pyzmq==17.0.0 automat==0.3.0 \
+    && pip install jupyter_contrib_nbextensions \
+    && pip install https://github.com/ipython-contrib/jupyter_contrib_nbextensions/tarball/master \
+    && jupyter contrib nbextension install --user \
+    && pip install jupyter_nbextensions_configurator \
+    && jupyter nbextensions_configurator enable --user \
+    && pip install jupyterlab jupyterlab-discovery jupyterlab-launcher jupyterlab-templates
+    
+RUN source activate base \
+    && jupyter nbextension enable codefolding/edit \
+    && jupyter nbextension enable codefolding/main \
+    && jupyter nbextension enable execute_time/ExecuteTime \
+    && jupyter nbextension enable code_prettify/code_prettify \
+    && jupyter nbextension enable spellchecker/main \
+    && jupyter nbextension enable execution_dependencies/execution_dependencies \
+    && jupyter nbextension enable freeze/main \
+    && jupyter nbextension enable scratchpad/main \
+    && jupyter nbextension enable code_prettify/autopep8 \
+    && jupyter nbextension enable toc2/main \
+    && jupyter nbextension enable highlight_selected_word/main \
+    && jupyter nbextension enable collapsible_headings/main
+    
+RUN apt-get autoremove -y && apt-get clean && \
+    rm -rf /var/lib/apt/lists/* && \
+    conda clean -i -l -t -y
+
+## Install Docker inside container
+RUN apt-get update && \
+    apt-get -y install apt-transport-https \
+     ca-certificates \
+     curl \
+     gnupg2 \
+     software-properties-common && \
+    curl -fsSL https://download.docker.com/linux/$(. /etc/os-release; echo "$ID")/gpg > /tmp/dkey; apt-key add /tmp/dkey && \
+    add-apt-repository \
+       "deb [arch=amd64] https://download.docker.com/linux/$(. /etc/os-release; echo "$ID") \
+       $(lsb_release -cs) \
+       stable" && \
+    apt-get update && \
+    apt-get -y install docker-ce
+
+
+WORKDIR /root
+
+RUN source activate base
+EXPOSE 2222 6006 8889 8888 5000
+CMD jupyter lab --ip=0.0.0.0 --port=8889 --allow-root
