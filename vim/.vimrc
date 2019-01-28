@@ -26,6 +26,15 @@ nnoremap <space> za
 Plugin 'tmhedberg/SimpylFold'
 let g:SimpylFold_docstring_preview=1
 
+
+set tabstop=4
+set softtabstop=4
+set shiftwidth=4
+set textwidth=79
+set expandtab
+set autoindent
+
+
 " Python Indentation
 au BufNewFile,BufRead *.py:
     \ set tabstop=4
@@ -50,14 +59,9 @@ au BufRead,BufNewFile *.py,*.pyw,*.c,*.h match BadWhitespace /\s\+$/
 
 set encoding=utf-8
 
-" Auto-complete
-Bundle 'Valloric/YouCompleteMe'
-let g:ycm_autoclose_preview_window_after_completion=1
-map <leader>g  :YcmCompleter GoToDefinitionElseDeclaration<CR>
-let g:ycm_server_python_interpreter='/usr/bin/python'
 
 "python with virtualenv support
-py3 << EOF
+python << EOF
 import os
 import sys
 if 'VIRTUAL_ENV' in os.environ:
@@ -102,3 +106,6 @@ set pastetoggle=<F3>
 " Highlight 80 char line
 highlight ColorColumn ctermbg=gray
 set colorcolumn=80
+
+" Use Jedi for autocompletion
+Plugin 'davidhalter/jedi-vim'

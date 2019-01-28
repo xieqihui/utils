@@ -6,9 +6,9 @@
 vim --version
 
 ## Install VIM
-sudo apt-get remove vim-tiny
-sudo apt-get update
-sudo apt-get install vim
+#sudo apt-get remove vim-tiny
+#sudo apt-get update
+#sudo apt-get install vim
 
 ## Install Vundle
 git clone https://github.com/gmarik/Vundle.vim.git ~/.vim/bundle/Vundle.vim
@@ -20,15 +20,9 @@ cp ./.vimrc ~/.vimrc
 mkdir -p ~/.vim/autoload && \
 curl -LSso ~/.vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim
 
+
+## Install jedi-vim for autocompletion
+git clone --recursive https://github.com/davidhalter/jedi-vim.git ~/.vim/bundle/jedi-vim
+
 ## Install plugins specified in vimrc
 echo | echo | vim +PluginInstall +qall &>/dev/null
-
-## Install YouCompleteMe
-# https://github.com/Valloric/YouCompleteMe#mac-os-x-super-quick-installation
-# Install development tools and CMake
-sudo apt-get install build-essential cmake
-# Make sure you have Python headers installed:
-sudo apt-get install python-dev python3-dev
-# Compile YCM without sematic support of C-family languages
-cd ~/.vim/bundle/YouCompleteMe
-./install.py
